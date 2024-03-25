@@ -39,3 +39,27 @@ INNER JOIN person.PhoneNumberType pn ON pp.PhoneNumberTypeID = pn.PhoneNumberTyp
 SELECT TOP 10 pa.AddressID, pa.City, ps.StateProvinceId, ps.name
 FROM person.address pa
 INNER JOIN person.StateProvince ps ON ps.StateProvinceID = pa.StateProvinceID
+
+--
+------LEFT JOIN
+--quero descobrir quais pessoas tem um cartao de credito registrado
+SELECT * 
+FROM Person.Person PP
+INNER JOIN Sales.PersonCreditCard PC
+ON pp.BusinessEntityID = PC.BusinessEntityID
+--INNER JOIN : 19118 LINHAS
+--------
+
+SELECT * 
+FROM Person.Person PP
+LEFT JOIN Sales.PersonCreditCard PC
+ON pp.BusinessEntityID = PC.BusinessEntityID
+--LEFT JOIN: 19972
+---TEMOS 854 PESSOAS SEM CARTÃO DE CREDITO REGISTRADO
+
+--COMO EXTRAIR APENAS AS PESSOAS SEM CARTAO DE CREDITO?
+SELECT * 
+FROM Person.Person PP
+LEFT JOIN Sales.PersonCreditCard PC
+ON pp.BusinessEntityID = PC.BusinessEntityID
+WHERE PC.BusinessEntityID IS NULL
